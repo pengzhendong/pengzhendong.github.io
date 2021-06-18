@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://pengzhendong.cn/books/books.json</loc>
+    
+    <lastmod>2021-06-18T09:39:10.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/books/2021/index.html</loc>
+    
+    <lastmod>2020-12-31T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/theme/next/languages/zh-CN.json</loc>
+    
+    <lastmod>2020-07-16T11:02:41.012Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/love/index.html</loc>
+    
+    <lastmod>2020-07-10T05:52:38.537Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/friends/friends.json</loc>
+    
+    <lastmod>2020-07-10T05:52:38.526Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/baidu_verify_rPmSsXeUWt.html</loc>
+    
+    <lastmod>2020-07-10T05:52:38.380Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn//404.html</loc>
+    
+    <lastmod>2020-07-10T05:52:37.899Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/books/2020/index.html</loc>
+    
+    <lastmod>2019-12-31T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/about/index.html</loc>
+    
+    <lastmod>2019-04-30T08:47:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2019/04/08/java-basis/</loc>
+    
+    <lastmod>2019-04-08T03:23:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2019/01/14/neural-style-transfer/</loc>
+    
+    <lastmod>2019-01-14T10:42:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2019/01/12/face-recognition/</loc>
+    
+    <lastmod>2019-01-12T10:26:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2019/01/08/autonomous-driving/</loc>
+    
+    <lastmod>2019-01-08T15:26:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/books/2019/index.html</loc>
+    
+    <lastmod>2018-12-31T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/12/19/object-detection/</loc>
+    
+    <lastmod>2018-12-19T10:02:35.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/12/12/resnet/</loc>
+    
+    <lastmod>2018-12-12T09:42:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/12/10/deep-convnet-probe/</loc>
+    
+    <lastmod>2018-12-10T10:46:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/12/05/convnet-application/</loc>
+    
+    <lastmod>2018-12-05T07:45:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/12/03/convolutional-neural-networks/</loc>
+    
+    <lastmod>2018-12-03T07:16:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/11/26/beam-search-and-bleu/</loc>
+    
+    <lastmod>2018-11-26T06:43:53.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/11/20/convolution-and-filters/</loc>
+    
+    <lastmod>2018-11-20T12:34:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/11/15/trigger-word-detection/</loc>
+    
+    <lastmod>2018-11-15T13:22:49.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/10/29/fast-fourier-transform/</loc>
+    
+    <lastmod>2018-10-29T11:34:59.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/10/22/wav-file/</loc>
+    
+    <lastmod>2018-10-22T03:22:47.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/09/10/neural-machine-translation/</loc>
+    
+    <lastmod>2018-09-10T07:27:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/08/31/word-vector-representation/</loc>
+    
+    <lastmod>2018-08-31T12:18:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/08/31/emojify/</loc>
+    
+    <lastmod>2018-08-31T04:18:57.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/08/28/jazz-with-an-lstm-network/</loc>
+    
+    <lastmod>2018-08-28T06:22:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/06/27/character-level-language-model/</loc>
+    
+    <lastmod>2018-06-27T03:32:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/06/20/recurrent-neural-network/</loc>
+    
+    <lastmod>2018-06-20T06:33:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/06/07/batch-normalization/</loc>
+    
+    <lastmod>2018-06-07T04:34:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/06/06/optimization-algorithms/</loc>
+    
+    <lastmod>2018-06-06T04:02:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/05/31/feature-scaling/</loc>
+    
+    <lastmod>2018-05-31T15:13:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/05/31/gradient-checking/</loc>
+    
+    <lastmod>2018-05-31T06:43:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/05/29/regularization/</loc>
+    
+    <lastmod>2018-05-29T10:12:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/05/28/basic-concepts-in-machine-learning/</loc>
+    
+    <lastmod>2018-05-28T07:43:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/05/21/deep-neuron-network/</loc>
+    
+    <lastmod>2018-05-21T07:54:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/05/19/neuron-network/</loc>
+    
+    <lastmod>2018-05-19T15:44:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/04/26/logistic-regression/</loc>
+    
+    <lastmod>2018-04-26T13:32:11.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2018/03/10/linear-regression/</loc>
+    
+    <lastmod>2018-03-10T14:56:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/books/2018/index.html</loc>
+    
+    <lastmod>2017-12-31T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/books/2017/index.html</loc>
+    
+    <lastmod>2016-12-31T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2016/09/14/recursion/</loc>
+    
+    <lastmod>2016-09-14T12:33:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2016/07/30/master-method/</loc>
+    
+    <lastmod>2016-07-30T08:23:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2016/05/09/javascript-fp/</loc>
+    
+    <lastmod>2016-05-09T15:51:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/2016/01/15/java-json/</loc>
+    
+    <lastmod>2016-01-15T02:11:53.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/books/2016/index.html</loc>
+    
+    <lastmod>2015-12-31T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/books/index.html</loc>
+    
+    <lastmod>2014-12-31T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/friends/index.html</loc>
+    
+    <lastmod>2014-12-31T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://pengzhendong.cn/tags/index.html</loc>
+    
+    <lastmod>2014-12-31T16:00:00.000Z</lastmod>
+    
+  </url>
+  
+</urlset>

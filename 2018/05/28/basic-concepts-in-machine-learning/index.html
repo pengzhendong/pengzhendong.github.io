@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta name="generator" content="Hexo 3.9.0"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"><link rel="mask-icon" href="/images/logo.svg" color="#222"><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"><script id="hexo-configurations">var NexT=window.NexT||{},CONFIG={hostname:"pengzhendong.cn",root:"/",scheme:"Pisces",version:"7.8.0",exturl:!1,sidebar:{position:"left",display:"post",padding:18,offset:12,onmobile:!1},copycode:{enable:!1,show_result:!1,style:null},back2top:{enable:!0,sidebar:!1,scrollpercent:!1},bookmark:{enable:!1,color:"#222",save:"auto"},fancybox:!1,mediumzoom:!1,lazyload:!1,pangu:!1,comments:{style:"tabs",active:null,storage:!0,lazyload:!1,nav:null},algolia:{appID:"39IHYBUVGR",apiKey:"4287c8f8a629343c8d2212e108417ceb",indexName:"Notes",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}},localsearch:{enable:!1,trigger:"auto",top_n_per_article:1,unescape:!1,preload:!1},motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},path:"search.xml"}</script><meta name="description" content="前言 DeepLearning.ai 第二部分内容是改善深层神经网络，主要包括超参数的调试、正则化以及优化。这些内容大部分都是机器学习的基础，深度学习是机器学习的一个特定分支，要想充分理解深度学习就必须对机器学习的基本原理有深刻的理解。"><meta name="keywords" content="Deep Learning"><meta property="og:type" content="article"><meta property="og:title" content="机器学习基础"><meta property="og:url" content="https://pengzhendong.cn/2018/05/28/basic-concepts-in-machine-learning/index.html"><meta property="og:site_name" content="Randy&#39;s Notes"><meta property="og:description" content="前言 DeepLearning.ai 第二部分内容是改善深层神经网络，主要包括超参数的调试、正则化以及优化。这些内容大部分都是机器学习的基础，深度学习是机器学习的一个特定分支，要想充分理解深度学习就必须对机器学习的基本原理有深刻的理解。"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://pengzhendong.cn/2018/05/28/basic-concepts-in-machine-learning/polynomials.jpg"><meta property="og:updated_time" content="2018-05-28T07:43:51.000Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="机器学习基础"><meta name="twitter:description" content="前言 DeepLearning.ai 第二部分内容是改善深层神经网络，主要包括超参数的调试、正则化以及优化。这些内容大部分都是机器学习的基础，深度学习是机器学习的一个特定分支，要想充分理解深度学习就必须对机器学习的基本原理有深刻的理解。"><meta name="twitter:image" content="https://pengzhendong.cn/2018/05/28/basic-concepts-in-machine-learning/polynomials.jpg"><link rel="canonical" href="https://pengzhendong.cn/2018/05/28/basic-concepts-in-machine-learning/"><script id="page-configurations">CONFIG.page={sidebar:"",isHome:!1,isPost:!0,lang:"zh-CN"}</script><style type="text/css">body{background-image:url(/images/rockywall.png)}</style><title>机器学习基础 | Randy's Notes</title><script async src="https://www.googletagmanager.com/gtag/js?id=UA-92548519-1"></script><script>if(CONFIG.hostname===location.hostname){function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-92548519-1")}</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?06c54470f22c395ef480d6fb358497d5";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><noscript><style>.sidebar-inner,.use-motion .brand,.use-motion .collection-header,.use-motion .comments,.use-motion .menu-item,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.use-motion .logo-line-before i{left:initial}.use-motion .logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage"><div class="container use-motion"><div class="headband"></div><header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-container"><div class="site-nav-toggle"><div class="toggle" aria-label="切换导航栏"><span class="toggle-line toggle-line-first"></span><span class="toggle-line toggle-line-middle"></span><span class="toggle-line toggle-line-last"></span></div></div><div class="site-meta"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span><h1 class="site-title">Randy's Notes</h1><span class="logo-line-after"><i></i></span></a></div><div class="site-nav-right"><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class="site-nav"><ul id="menu" class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i> 首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i> 归档</a></li><li class="menu-item menu-item-友链"><a href="/friends/" rel="section"><i class="fa fa-users fa-fw"></i> 友链</a></li><li class="menu-item menu-item-书单"><a href="/books/" rel="section"><i class="fa fa-book fa-fw"></i> 书单</a></li><li class="menu-item menu-item-search"><a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i> 搜索</a></li></ul></nav><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-icon"><i class="fa fa-search"></i></span><div class="search-input-container"></div><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span></div><div class="algolia-results"><div id="algolia-stats"></div><div id="algolia-hits"></div><div id="algolia-pagination" class="algolia-pagination"></div></div></div></div></div></header><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span>0%</span></div> <a href="https://github.com/pengzhendong" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"></path><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"></path><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"></path></svg></a><main class="main"><div class="main-inner"><div class="content-wrap"><div class="content post posts-expand"><article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://pengzhendong.cn/2018/05/28/basic-concepts-in-machine-learning/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/avatar.jpg"><meta itemprop="name" content="Randy Peng"><meta itemprop="description" content="路漫漫其修远兮 吾将上下而求索"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Randy's Notes"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> 机器学习基础</h1><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建时间：2018-05-28 13:36:00 / 修改时间：15:43:51" itemprop="dateCreated datePublished" datetime="2018-05-28T13:36:00+08:00">2018-05-28</time></span><span id="/2018/05/28/basic-concepts-in-machine-learning/" class="post-meta-item leancloud_visitors" data-flag-title="机器学习基础" title="阅读次数"><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数：</span><span class="leancloud-visitors-count"></span></span><br><span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i></span> <span class="post-meta-item-text">本文字数：</span> <span>0</span></span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i></span> <span class="post-meta-item-text">阅读时长 &asymp;</span> <span>1 分钟</span></span></div></header><div class="post-body" itemprop="articleBody"><h2 id="前言">前言</h2><p>DeepLearning.ai 第二部分内容是改善深层神经网络，主要包括超参数的调试、正则化以及优化。这些内容大部分都是机器学习的基础，深度学习是机器学习的一个特定分支，要想充分理解深度学习就必须对机器学习的基本原理有深刻的理解。</p><a id="more"></a><h2 id="训练验证测试集">训练/验证/测试集</h2><p>当训练神经网络的时候，我们需要做出很多决策，例如神经网络要分多少层、隐藏层有多少个神经元、学习率是多少、每一层用什么激活函数等等。当创建一个新的应用的时候，我们不可能一开始就准确地预测出这些信息和其他超参数。所以应用型机器学习是一个高度迭代地过程：有个想法，然后写代码实现，分析实验结果，再改进自己的想法，然后写代码实现...创建高质量的训练集(Train set)、验证集(Development set)和测试集(Test set)有助于提高迭代效率。</p><p>在小数据量时代，常见的作法是将数据三七分(70% 训练集，30% “测试”集)或者 60%/20%/20% 划分训练集、验证集和测试集。在大数据时代，训练集的比重可能会更大，例如有一百万条数据，验证集和测试集可能只需要一万条数据，即 98%/1%/1% 。值得注意的是，验证集和测试集应该是同分布的，在测试集上评估的是验证集选出的模型；但是为了获取更大规模的训练集，训练集的分布可以和验证集/测试集不同分布。</p><h2 id="超参数">超参数</h2><p>大多机器学习算法都有超参数(例如上面需要做的决策)来控制算法行为，不同的超参数表示不同的模型。超参数的值<strong>不是</strong>通过算法本身学习出来(即使可以设计一个嵌套的学习过程学出最优超参数)。有时一个选项被设为超参数是因为它太难优化了，例如代价函数并不能给出<strong>学习率</strong>的更新方向，很难优化学习率；更多的情况是该选项必须是超参数，因为它不适合在训练集上学习，例如在<strong>训练集</strong>上学习控制模型容量的超参数，这些超参数总是趋向于最大可能的模型容量，导致过拟合。例如 M 次多项式拟合中，更倾向于在训练集上学出次数最高的模型，虽然训练误差小，但是拟合了噪声会导致过拟合，在遇到新数据的时候泛化误差就会很大。</p><p>超参数优化或模型选择是为了优化算法在<strong>独立数据集</strong>上的性能的度量 ，通常使用<strong>验证集</strong>进行交叉验证来<strong>估计这种泛化性能</strong>，指导超参数的调节。和训练数据相同分布的样本组成的测试集用来估计学习器的泛化误差，其重点在于测试样本不能以任何形式参与到模型的选择中 (包括设定超参数)。基于这个原因，测试集中的样本不能用于验证集，因此总是从训练数据中构建验证集。</p><p>深度学习中的超参数根据其重要性排序，大概有以下几个：</p><ul><li><font color="red">学习率 <span class="math inline">\(\alpha\)</span></font></li><li><font color="orange">Momentum 参数</font></li><li><font color="orange">隐藏神经元数 #hidden units</font></li><li><font color="orange">小批量的大小 mini-batch size</font></li><li><font color="purple">神经网络层数 #layers</font></li><li><font color="purple">学习率衰减</font></li><li><font color="blue">Adam 算法参数</font></li></ul><h3 id="超参数的调节">超参数的调节</h3><p>调节参数一般选择网格搜索的方法，但是推荐在网格中随机选择点，因为可能某个参数的某些取值不重要；另一个惯例是采用由粗糙到精细的策略，因为某个点效果好的话，也许这个点周围的其他一些点效果也很好。其次要为超参数选择合适的范围，而且对于某些超参数，不应该在取值范围内随机均匀取值，例如学习率 <span class="math inline">\(\alpha\)</span> 用对数标尺搜索超参数的方式会更合理，因此这里不使用线性轴，分别依次取 <span class="math inline">\(0.0001, 0.001, 0.01, 0.1, 1\)</span>。</p><p>超参数的调节主要有两种方法：</p><ol type="1"><li>一次试验一个模型，将超参数随机初始化，然后观察模型的学习曲线(例如代价函数曲线)，根据学习曲线慢慢调节超参数</li><li>同时试验多种模型，最后快速选择工作效果最好的那个</li></ol><p>在机器学习中，如果只有一个训练集和一个验证集，验证集则被人们称为“测试”集，不过人们只是把测试集当成简单交叉验证集使用，即评估模型的泛化能力，然后调节模型的超参数，所以“训练验证集“在专业用词上更准确。</p><p>因此，训练集用来训练模型，调节参数；验证集用来调节超参数，选择模型；尽管验证集的误差通常比训练集误差小，但是验证集会低估泛化误差，完成超参数优化后，还需要测试集来估计泛化误差。如果验证集具有足够泛化性，那么就不需要测试集来给出泛化误差的无偏估计。</p><h2 id="偏差方差">偏差/方差</h2><p>假设有数据集 <span class="math inline">\(x=\{x_1, x_2, …, x_n\}\)</span>，并且真实标签 <span class="math inline">\(y_i\)</span> 对应数据点 <span class="math inline">\(x_i\)</span>。假设函数 <span class="math inline">\(y=f(x)+\epsilon\)</span> ，其中噪声 <span class="math inline">\(\epsilon\)</span> 为 0 均值的高斯分布，方差为 <span class="math inline">\(\sigma^2\)</span>，表示数据集与标签并不是完全符合函数 <span class="math inline">\(y\)</span>。我们希望通过机器学习找到 <span class="math inline">\(\hat f(x)\)</span>，通过最小化均方误差 <span class="math inline">\((y-\hat f(x))^2\)</span>，尽可能地逼近 <span class="math inline">\(f(x)\)</span>。由于样本数据具有噪声，所以 <span class="math inline">\(\hat f(x)\)</span> 不会完全拟合 <span class="math inline">\(y\)</span>。<font color="red">误差</font>定义为： <span class="math display">\[ \begin{align} Err(x)&amp;=E\left[(y-\hat f(x))\right]^2 \\\ &amp;= \left(E[\hat f(x)]-f(x)\right)^2+E\left[\Big(\hat f(x)-E[\hat f(x)]\Big)^2\right]+\sigma^2 \\\ &amp;= \text{Bias}^2+\text{Variance}+\text{Irreducible Error} \end{align} \]</span> 对于训练误差，由于训练数据已知，即输入输出不是变量，常量的期望等于它本身，所以偏差 <span class="math inline">\(\text{Bias}=\hat f(x)-f(x)\)</span>，度量着偏离真实函数或参数的误差；方差 <span class="math inline">\(\text{Variance}=\Big(\hat f(x)-\hat f(x)\Big)^2=0\)</span>。表示训练误差由偏差和随机误差构成。</p><p>对于泛化误差，偏差 <span class="math inline">\(\text{Bias}=E[\hat f(x)]-f(x)\)</span> 度量着偏离真实函数或参数的误差期望；方差 <span class="math inline">\(\text{Variance}=E\left[\Big(\hat f(x)-E[\hat f(x)]\Big)^2\right]\)</span> 度量着数据上任意特定采样可能导致的估计期望的偏差(方差大，则对于不同采样，估计期望不一样)；噪声的方差为随机误差。一般说偏差、方差都是针对泛化来说的，因为验证集和训练集是同分布随机采样，所以 <span class="math inline">\(E[\hat f(x)]=\hat f(x)\)</span>，即泛化误差的偏差的平方等于训练误差(泛化误差=训练误差+方差)。在机器学习中，我们不仅希望降低训练误差(避免欠拟合)，也希望缩小训练误差和泛化误差的差距(避免过拟合)，这样就能缩小泛化误差。</p><h3 id="欠拟合过拟合">欠拟合/过拟合</h3><p>假设 <span class="math inline">\(y=f(x)+\epsilon=sin(2\pi x)+\epsilon, x \in [0, 1]\)</span>，根据已有数据，我们只能猜测它是一个 M 多项式。</p><p><img src="/2018/05/28/basic-concepts-in-machine-learning/polynomials.jpg"></p><p>M = 0, 1 则欠拟合，因为模型不能在训练集上获得足够低的误差，所以偏差比较大。对于 M = 0，<span class="math inline">\(\hat f(x)=c\)</span> <strong>泛化误差</strong>为： <span class="math display">\[ \begin{align} Err(x)&amp;=E\left[(y-\hat f(x))\right]^2 \\\ &amp;= \left(E[\hat f(x)]-f(x)\right)^2+E\left[\Big(\hat f(x)-E[\hat f(x)]\Big)^2\right]+\sigma^2 \\\ &amp;= \Big(c-f(x)\Big)^2+E\Big[\Big(c-E[c]\Big)^2\Big]+\sigma^2 \\\ &amp;= \Big(c-f(x)\Big)^2+0+\sigma^2 \end{align} \]</span> 所以欠拟合会导致偏差大；而 M = 9 则过拟合，因为它同时拟合了噪声，所以对于 <span class="math inline">\([0, 1]\)</span> 中未知的数据，训练误差和泛化误差之间的差距很大，方差比较大。对于 M = 9 预测模型输出的期望为样本的期望，即： <span class="math display">\[ E[\hat f(x)]=E[y(x)]=E[f(x)+\epsilon]=f(x)=E[y] \]</span> <strong>泛化误差</strong>为： <span class="math display">\[ \begin{align} Err(x)&amp;=E\left[(y-\hat f(x))\right]^2 \\\ &amp;= \left(E[\hat f(x)]-f(x)\right)^2+E\left[\Big(\hat f(x)-E[\hat f(x)]\Big)^2\right]+\sigma^2 \\\ &amp;= \Big(E[y]-E[y]\Big)^2+E\left[\Big(\hat f(x)-E[y]\Big)^2\right]+\sigma^2 \\\ &amp;= 0+E\Big[\Big(E[y]+\epsilon-E[y]\Big)^2\Big]+\sigma^2 \\\ &amp;= 0+E[\epsilon^2]+\sigma^2 \end{align} \]</span> 所以过拟合会导致方差大；M = 3 就是一个比较合适的模型，偏差和方差权衡得比较好。模型泛化误差、偏差、方差和模型的复杂度的关系，模型越复杂越能拟合训练数据，所以偏差越小，但是由于拟合了噪声越多，所以遇到新数据时，泛化能力越弱，方差越大。</p><p>对于偏差和方差的分析要基于最优误差(贝叶斯误差)，即对于一个问题，如果机器学习算法的偏差为 10%，而人类分析的误差为 15%，那么就不能说该算法的偏差高。假设人类错误率为 0%，且训练误差和验证误差如下表所示，则有：</p><table><tbody><tr class="odd"><td>Train set error</td><td>1%</td><td>15%</td><td>15%</td><td>0.5%</td></tr><tr class="even"><td>Dev set error</td><td>11%</td><td>16%</td><td>30%</td><td>1%</td></tr><tr class="odd"><td></td><td>高方差(低偏差)</td><td>高偏差(低方差)</td><td>高偏差，高方差</td><td>低偏差，低方差</td></tr><tr class="even"><td></td><td>过拟合</td><td>欠拟合</td><td>欠拟合</td><td>Good</td></tr></tbody></table><p>遇到高偏差，可以考虑添加多一些数据特征、使用复杂一点的模型或者调低正则项的惩罚因数；遇到高方差，可以考虑使用更多的训练数据、更少的数据特征或者调高正则项的惩罚因数。总之就是不断调整模型，不断尝试，直到找到一个比较合适的模型，能够较好地均衡偏差和方差。</p><h2 id="参考文献">参考文献</h2><p>[1] 吴恩达. DeepLearning.</p><p>[2] Ian Goodfellow, Yoshua Bengio, Aaron Courville. Deep Learning. 人民邮电出版社. 2017.</p><p>[3] 机器学习笔记. https://feisky.xyz/machine-learning</p><p>[4] Christopher M.Bishop. Pattern Recognition and Machine Learning. 2006.</p></div><div class="reward-container"><div>疏影横斜水清浅，暗香浮动月黄昏</div> <button onclick='var qr=document.getElementById("qr");qr.style.display="none"===qr.style.display?"block":"none"'> 打赏</button><div id="qr" style="display:none"><div style="display:inline-block"> <img src="/images/wechatpay.png" alt="Randy Peng 微信支付"><p>微信支付</p></div><div style="display:inline-block"> <img src="/images/alipay.png" alt="Randy Peng 支付宝"><p>支付宝</p></div></div></div><div><ul class="post-copyright"><li class="post-copyright-author"> <strong>本文作者：</strong> Randy Peng</li><li class="post-copyright-link"> <strong>本文链接：</strong> <a href="https://pengzhendong.cn/2018/05/28/basic-concepts-in-machine-learning/" title="机器学习基础">https://pengzhendong.cn/2018/05/28/basic-concepts-in-machine-learning/</a></li><li class="post-copyright-license"> <strong>版权声明：</strong> 本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div><center><br><div class="addthis_inline_share_toolbox"><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5aa9d6309315fb5e" async="async"></script></div></center><footer class="post-footer"><div class="post-tags"> <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a></div><div class="post-nav"><div class="post-nav-item"><a href="/2018/05/21/deep-neuron-network/" rel="prev" title="深度神经网络"><i class="fa fa-chevron-left"></i> 深度神经网络</a></div><div class="post-nav-item"> <a href="/2018/05/29/regularization/" rel="next" title="正则化">正则化<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div><script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script></div><div class="toggle sidebar-toggle"><span class="toggle-line toggle-line-first"></span><span class="toggle-line toggle-line-middle"></span><span class="toggle-line toggle-line-last"></span></div><aside class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc"> 文章目录</li><li class="sidebar-nav-overview"> 站点概览</li></ul><div class="post-toc-wrap sidebar-panel"><div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练验证测试集"><span class="nav-number">2.</span> <span class="nav-text">训练/验证/测试集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超参数"><span class="nav-number">3.</span> <span class="nav-text">超参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#超参数的调节"><span class="nav-number">3.1.</span> <span class="nav-text">超参数的调节</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偏差方差"><span class="nav-number">4.</span> <span class="nav-text">偏差/方差</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#欠拟合过拟合"><span class="nav-number">4.1.</span> <span class="nav-text">欠拟合/过拟合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li></ol></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" alt="Randy Peng" src="/images/avatar.jpg"><p class="site-author-name" itemprop="name">Randy Peng</p><div class="site-description" itemprop="description">路漫漫其修远兮 吾将上下而求索</div></div><div class="site-state-wrap motion-element"><nav class="site-state"><div class="site-state-item site-state-posts"> <a href="/archives/"><span class="site-state-item-count">34</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/"><span class="site-state-item-count">7</span> <span class="site-state-item-name">标签</span></a></div></nav></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/pengzhendong" title="GitHub → https://github.com/pengzhendong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i> GitHub</a></span><span class="links-of-author-item"><a href="https://twitter.com/pengzhendong" title="Twitter → https://twitter.com/pengzhendong" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i> Twitter</a></span><span class="links-of-author-item"><a href="mailto:275331498@qq.com" title="E-Mail → mailto:275331498@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i> E-Mail</a></span><span class="links-of-author-item"><a href="https://www.facebook.com/pengzhendong" title="FaceBook → https://www.facebook.com/pengzhendong" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i> FaceBook</a></span><span class="links-of-author-item"><a href="https://t.me/pengzhendong" title="Telegram → https://t.me/pengzhendong" rel="noopener" target="_blank"><i class="fab fa-telegram fa-fw"></i> Telegram</a></span><span class="links-of-author-item"><a href="https://www.zhihu.com/people/pengzhendong" title="知乎 → https://www.zhihu.com/people/pengzhendong" rel="noopener" target="_blank"><i class="fab fa-leanpub fa-fw"></i> 知乎</a></span><span class="links-of-author-item"><a href="https://weibo.com/qq275331498" title="微博 → https://weibo.com/qq275331498" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i> 微博</a></span><span class="links-of-author-item"><a href="/about" target="_self" title="关于 → /about" target="_self"><i class="fa fa-user fa-fw"></i> 关于</a></span></div><hr style="margin-top:20px;margin-bottom:20px"> <img src="/images/wechat.png"></div></div></aside><div id="sidebar-dimmer"></div></div></main><footer class="footer"><div class="footer-inner"><div class="copyright"> &copy; 2015 – <span itemprop="copyrightYear">2021</span><span class="with-love"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">Randy Peng</span> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-chart-area"></i></span> <span title="站点总字数">258k</span> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-coffee"></i></span> <span title="站点阅读时长">3:55</span></div><script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YHMwvrTgcfDjOXmiGY3jQ2r5-gzGzoHsz","app_key":"JRfKfM8mRPgxMB9GOSAnix9W","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script></div></footer></div><script src="/lib/anime.min.js"></script><script src="/lib/velocity/velocity.min.js"></script><script src="/lib/velocity/velocity.ui.min.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/pisces.js"></script><script src="/js/next-boot.js"></script><script>!function(){var o,n,e=document.getElementsByTagName("link");if(0<e.length)for(i=0;i<e.length;i++)"canonical"==e[i].rel.toLowerCase()&&e[i].href&&(o=e[i].href);n=o?o.split(":")[0]:window.location.protocol.split(":")[0],o||(o=window.location.href),function(){var e=o,i=document.referrer;if(!/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi.test(e)){var t="https"===String(n).toLowerCase()?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";i?(t+="?r="+encodeURIComponent(document.referrer),e&&(t+="&l="+e)):e&&(t+="?l="+e),(new Image).src=t}}(window)}()</script><script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script><script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script><script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script></body></html>
