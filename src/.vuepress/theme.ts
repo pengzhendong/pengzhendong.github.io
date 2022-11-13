@@ -25,11 +25,11 @@ export default hopeTheme({
 
   blog: {
     medias: {
-      BiliBili: "https://example.com",
-      Email: "https://example.com",
+      BiliBili: "https://space.bilibili.com/45821525",
+      Email: "275331498@qq.com",
       GitHub: "https://github.com/pengzhendong",
       Rss: "https://example.com",
-      Weibo: "https://example.com",
+      Weibo: "https://weibo.com/u/2407094233",
       Zhihu: "https://www.zhihu.com/people/pengzhendong",
     },
   },
@@ -42,7 +42,7 @@ export default hopeTheme({
       sidebar: zhSidebar,
       displayFooter: false,
       blog: {
-        description: "一个语音工程师",
+        description: "语音工程师",
         intro: "/intro.html",
       },
       // page meta

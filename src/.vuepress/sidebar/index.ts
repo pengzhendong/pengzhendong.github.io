@@ -9,13 +9,6 @@ export const zhSidebar = sidebar({
       prefix: "posts/",
       children: "structure",
     },
-    {
-      text: "如何使用",
-      icon: "creative",
-      prefix: "docs/",
-      link: "docs/",
-      children: "structure",
-    },
     "intro",
   ],
 });

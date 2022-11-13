@@ -7,7 +7,7 @@ export const zhNavbar = navbar([
   {
     text: "文档",
     icon: "edit",
-    prefix: "/docs/",
+    prefix: "https://pengzhendong.github.io/docs/",
     children: [
       { text: "语音识别", link: "" },
       { text: "语音合成", link: "" },
