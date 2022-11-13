@@ -2,4 +2,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: https://pengzhendong.github.io/vuepress/sitemap.xml
+Sitemap: https://pengzhendong.github.io/sitemap.xml
