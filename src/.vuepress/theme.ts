@@ -11,7 +11,7 @@ export default hopeTheme({
   },
 
   themeColor: {
-    blue: "#2196f3",
+    green: "#3eaf7c",
     red: "#f26d6d",
     orange: "#fb9b5f",
   },
